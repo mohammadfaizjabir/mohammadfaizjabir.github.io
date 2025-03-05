@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="icon" href="assets/images/faiz.jpg" type="image/png">
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <header class="bg-white shadow">
+    <div class="container mx-auto px-4 py-6 flex flex-wrap justify-between items-center">
+      <div class="flex items-center mb-4 md:mb-0">
+        <img class="w-20 h-20 md:w-32 md:h-32 rounded-full" src="../assets/images/faiz.jpg" alt="Your Image">
+        <div class="ml-4 md:ml-10">
+          <h1 class="text-xl md:text-4xl font-bold">Journey of Curiosity</h1>
+          <p class="text-sm md:text-base text-gray-600">a blog by Faiz</p>
+        </div>
+      </div>
+      <nav class="w-full md:w-auto flex justify-center md:justify-end space-x-4 mt-4 md:mt-0">
+        <a href="index.html" class="text-sm md:text-base text-gray-700 hover:text-blue-500">Home</a>
+        <a href="projects.html" class="text-sm md:text-base text-gray-700 hover:text-blue-500">Projects</a>
+        <a href="about.html" class="text-sm md:text-base text-gray-700 hover:text-blue-500">About</a>
+        <a href="assets/resume.pdf" download class="text-sm md:text-base text-red-500 font-bold hover:text-blue-500" target="_blank">CV</a>
+      </nav>
+    </div>
+    </header>
+  <main class="container mx-auto px-4 py-8">
+    <article class="prose lg:prose-xl mx-auto">
+      <h1 class="text-4xl font-bold mb-4">Hi, I’m Mohammad Faiz Jabir 👋🏽</h1>
+      <p class="mb-4">I'm a 20-year-old developer based in Doha, Qatar.</p>
+      <p class="mb-4">🌱 I’m currently learning Bachelor of Applied Science in Data Science & Artificial Intelligence & Machine Learning at <a href="https://www.udst.edu.qa/" class="text-blue-700 hover:underline">University of Doha for Science & Technology, Qatar</a>.</p>
+      
+      <h2 class="text-2xl font-bold mt-8 mb-4">📦 Toolbox</h2>
+      <ul class="list-disc pl-5 mb-4">
+        <li>Programming Language: Python, Java</li>
+        <li>Python Library: Pandas, Numpy, Matplotlib, Seaborn, Scikit-learn, Keras</li>
+        <li>Frontend Development: HTML, CSS, TailwindCSS, JavaScript</li>
+        <li>Backend Development: Node.js, Express.js</li>
+        <li>Database: MySQL, MongoDB</li>
+        <li>Business Intelligence Tools: Power BI</li>
+        <li>Version Control: Git, GitLab</li>
+      </ul>
+      
+      <h2 class="text-2xl font-bold mt-8 mb-4">✨ Fun Facts</h2>
+      <ul class="list-disc pl-5 mb-4">
+        <li>As a kid, I wanted to be a Scientist.</li>
+        <li>I love to cook.</li>
+      </ul>
+      
+      <h2 class="text-2xl font-bold mt-8 mb-4">📫 Contact</h2>
+      <p class="mb-4">For a quick response, you can reach out to me via <a href="mailto:faizjabir003@gmail.com" class="text-blue-700 hover:underline">Email</a>.</p>
+    </article>
+    <div class="mt-12">
+        <h3 class="text-lg font-semibold mb-4">Subscribe to our Newsletter</h3>
+        <form id="subscription-form" action="https://formspree.io/f/xayvbkbr" method="POST" class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 justify-left">
+            <input type="email" name="user_email" id="user_email" placeholder="Your email address" required class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-64">
+            <button type="submit" class="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 w-32">Subscribe</button>
+        </form>
+        <p id="response-message" class="mt-4 text-sm text-red-500 text-center"></p>
+    </div>
+  </main>
+  <footer class="bg-white shadow mt-12">
+    <div class="container mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
+      <p class="text-center md:text-left">&copy; <span id="year"></span> Mohammad Faiz Jabir</p>
+      <div class="space-x-4 mt-4 md:mt-0 text-center">
+        <a href="https://github.com/mhdfaizjabir" class="hover:text-red-500" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/mohammad-faiz-jabir/" class="hover:text-red-500" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    document.getElementById('subscription-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const form = event.target;
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: form.method,
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(response => {
+            if (response.ok) {
+                document.getElementById('response-message').textContent = 'Thank you for subscribing!';
+                form.reset();
+            } else {
+                response.json().then(data => {
+                    if (Object.hasOwn(data, 'errors')) {
+                        document.getElementById('response-message').textContent = data["errors"].map(error => error["message"]).join(", ");
+                    } else {
+                        document.getElementById('response-message').textContent = 'Oops! There was a problem submitting your form';
+                    }
+                })
+            }
+        }).catch(error => {
+            document.getElementById('response-message').textContent = 'Oops! There was a problem submitting your form';
+        });
+    });
+  </script>
+</body>
+</html>
